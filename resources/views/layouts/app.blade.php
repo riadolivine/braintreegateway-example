@@ -87,7 +87,30 @@
             container: '#dropin-container',
             paypal: {
                 flow: 'vault',
-            }
+            },
+            venmo: {
+                allowNewBrowserTab: false
+            },
+            googlePay: {
+                googlePayVersion: 2,
+                merchantId: '5164272987942086881',
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPrice: '123.45',
+                    currencyCode: 'USD'
+                },
+                allowedPaymentMethods: [{
+                    type: 'CARD',
+                    parameters: {
+                        // We recommend collecting and passing billing address information with all Google Pay transactions as a best practice.
+                        billingAddressRequired: true,
+                        billingAddressParameters: {
+                            format: 'FULL'
+                        }
+                    }
+                }],
+            },
+
         }, function (createErr, instance) {
             button.addEventListener('click', function () {
                 instance.requestPaymentMethod(function (err, payload) {
